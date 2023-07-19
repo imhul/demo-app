@@ -1,0 +1,128 @@
+html {
+    body {
+        #root {
+            section.ant-layout {
+                display: flex;
+                flex-flow: row wrap;
+                align-items: flex-start;
+                background-color: var(--pure-white);
+
+                aside {
+                    &:not(.collapsed) {
+                        --aside-width: rem(600);
+                    }
+
+                    &.collapsed {
+                        --aside-width: rem(480);
+                    }
+
+                    display: flex;
+                    flex-flow: column wrap;
+                    justify-content: space-between;
+                    height: 100vh;
+                    flex: 0 0 var(--aside-width);
+                    width: var(--aside-width);
+                    background: var(--aside-bg);
+
+                    .decoration {
+                        display: flex;
+                    }
+
+                    .content {
+                        width: rem(452);
+                        margin: rem(92) auto 0 rem(64);
+
+                        h1 {
+                            @include font(rem(36), 700, normal, var(--pure-white));
+                        }
+
+                        p {
+                            @include font(rem(18), 400, rem(24), var(--secondary-x-light));
+                        }
+
+                        .ant-list-item {
+                            display: flex !important;
+                            flex-flow: row nowrap;
+                            align-items: center;
+                            justify-content: flex-start !important;
+
+                            span {
+                                margin-left: rem(8);
+                            }
+                        }
+                    }
+                }
+
+                main {
+                    position: relative;
+                    flex: 1 0 auto;
+                    width: calc(100% - var(--aside-width));
+
+                    .auth {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        display: flex;
+                        flex-flow: column wrap;
+                        justify-content: space-between;
+                        height: rem(550);
+                        width: 100%;
+                        max-width: rem(336);
+                    }
+
+                    .switch {
+                        position: absolute;
+                        top: rem(24);
+                        right: rem(24);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: rem(44);
+                        height: rem(24);
+                        background-color: var(--special-bg);
+                        border-radius: rem(8);
+                        @include font(rem(12), 600, normal, var(--secondary-dark));
+                    }
+                }
+            }
+        }
+
+        .ant-drawer {
+            &.register-modal {
+                .ant-drawer-content {
+                    background: var(--aside-bg) !important;
+
+                    .ant-drawer-header-title {
+                        flex: 0 1 rem(12);
+
+                        .ant-drawer-close {
+                            margin-right: rem(12);
+                        }
+                    }
+
+                    .ant-drawer-body {
+                        position: relative;
+
+                        .modal-content {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: rem(700);
+                            text-align: center;
+
+                            svg {
+                                margin-bottom: rem(48);
+                            }
+
+                            p {
+                                @include font(rem(18), 500, rem(24), var(--secondary-x-light));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

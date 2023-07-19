@@ -1,0 +1,43 @@
+:root {
+    font-family: "Montserrat";
+
+    // colors
+    --transparent: rgba(0, 0, 0, 0);
+    --pure-white: #ffffff;
+    --success-main: #71d475;
+    --success-light: #84df88;
+    --text-main: #303842;
+    --text-light: #47525f;
+    --text-dark: #20272e;
+    --grey: #8d97b0;
+    --grey-light: #d2d8e8;
+    --grey-dark: #6d7895;
+    --primary: #4e5af2;
+    --primary-main: var(--primary);
+    --primary-light: #5e6bf6;
+    --primary-x-light: #dcdefc;
+    --primary-dark: #3843ed;
+    --secondary-x-light: #edf2ff;
+    --secondary-dark: #6d6be5;
+    --error-main: #ff776f;
+    --form-stroke: #cbd5e2;
+    --light: var(--form-stroke);
+    --special-bg: rgba(237, 242, 255, 0.7);
+
+    // FX colors
+    --grad-start: #8892ff;
+    --grad-end: var(--secondary-dark);
+    --shadow-1: rgba(0, 0, 0, 0.32);
+    --shadow-2: rgba(0, 0, 0, 0.08);
+    --shadow-3: rgba(0, 0, 0, 0.16);
+
+    // FX
+    --aside-bg: linear-gradient(
+        180deg,
+        var(--grad-start) 0%,
+        var(--grad-end) 18.75%
+    );
+    --box-shadow: 0 0 rem(80) 0 var(--shadow-1),
+        0 rem(6) rem(6) 0 var(--shadow-2);
+    --btn-hover-shadow: 0 rem(4) rem(5) 0 var(--shadow-3);
+}

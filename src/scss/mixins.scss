@@ -1,0 +1,92 @@
+@use 'sass:math';
+
+// media mobile-first
+$min-width-xx-small: 375px;
+$min-width-x-small: 415px;
+$min-width-small: 600px;
+$min-width-medium: 768px;
+$min-width-tablet: 992px;
+$min-width-large: 1200px;
+$min-width-x-large: 1600px;
+
+@function rem($px) {
+    @return math.div($px * 1px, 16px) * 1rem;
+}
+
+@mixin font($size, $weight, $lineh, $color) {
+    color: $color;
+    line-height: $lineh;
+    font-weight: $weight;
+    font-size: $size;
+    font-style: normal;
+    letter-spacing: normal;
+}
+
+@mixin truncate($lines) {
+    /* stylelint-disable */
+    display: -webkit-box;
+    /* stylelint-enable */
+    overflow: hidden;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+}
+
+@mixin transition($duration: 0.35s, $ease: ease-in-out) {
+    transition-delay: 0s;
+    transition-duration: $duration;
+    transition-timing-function: $ease;
+    transition-property: color, background-color, border-color, fill,
+        filter, stroke, text-shadow, box-shadow;
+}
+
+// EXAMPLE USAGE:
+
+// input[type='range'] {
+//     z-index: 1;
+//     position: absolute;
+//     left: 0;
+//     top: -0.125rem;
+//     width: 100%;
+//     margin: var(--size-4) 0;
+//     content: '';
+//     background-color: var(--transparent);
+//     pointer-events: none;
+//     appearance: none;
+
+//     &:focus {
+//         outline: none;
+//     }
+
+//     &::-webkit-slider-runnable-track {
+//         background: var(--color-pink);
+//         border: none;
+//         border-radius: var(--size-2);
+//         width: 100%;
+//         height: var(--size-2);
+//     }
+
+//     &::-webkit-slider-thumb {
+//         width: var(--size-0-5);
+//         height: var(--size-2);
+//         background: var(--color-pink);
+//         border: none;
+//         box-shadow: makelongshadow(var(--range-bg), 0);
+//         appearance: none;
+//     }
+
+//     &::-moz-range-track {
+//         background: var(--color-pink);
+//         border: none;
+//         border-radius: var(--size-2);
+//         width: 100%;
+//         height: var(--size-2);
+//     }
+
+//     &::-moz-range-thumb {
+//         width: var(--size-0-5);
+//         height: var(--size-2);
+//         background: var(--color-pink);
+//         border: none;
+//         box-shadow: makelongshadow(var(--range-bg), 0);
+//     }
+// }
