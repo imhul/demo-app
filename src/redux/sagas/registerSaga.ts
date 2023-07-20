@@ -18,19 +18,14 @@ function* registerSaga({
         if (response.status === 'success') {
             yield put({
                 type: types.USER_REGISTER_SUCCESS,
-                payload: response.data
+                payload: response.user_data.token,
+                meta: payload.email
             });
         } else {
-            yield put({
-                type: types.USER_REGISTER_FAIL,
-                payload: 'error'
-            });
+            yield put({ type: types.USER_REGISTER_FAIL });
         }
     } catch (error) {
-        yield put({
-            type: types.USER_REGISTER_FAIL,
-            payload: 'error'
-        });
+        yield put({ type: types.USER_REGISTER_FAIL });
     }
 }
 

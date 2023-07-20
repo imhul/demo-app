@@ -17,16 +17,13 @@ function* loginSaga({
         if (response.status === 'success') {
             yield put({
                 type: types.USER_LOGIN_SUCCESS,
-                payload: response.data
+                payload: response.data.user_data
             });
         } else {
-            yield put({
-                type: types.USER_LOGIN_FAIL,
-                payload: 'error'
-            });
+            yield put({ type: types.USER_LOGIN_FAIL });
         }
     } catch (error) {
-        yield put({ type: types.USER_LOGIN_FAIL, payload: 'error' });
+        yield put({ type: types.USER_LOGIN_FAIL });
     }
 }
 

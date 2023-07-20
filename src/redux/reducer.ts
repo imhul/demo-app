@@ -6,6 +6,7 @@ import { types } from 'redux/types';
 interface Action {
     type: string;
     payload: any;
+    meta?: any;
 }
 
 const initState = {
@@ -22,7 +23,7 @@ const initState = {
     resetToken: '',
     resetTemporaryToken: '',
     // login / logout
-    isLoggedIn: false,
+    isLoggedIn: true,
     loginRequest: false,
     loginError: false,
     logoutRequest: false,
@@ -62,7 +63,7 @@ const initState = {
     // reset password confirm phone
     resetPasswordConfirmPhoneRequest: false,
     resetPasswordConfirmPhoneSuccess: false,
-    resetPasswordConfirmPhoneError: false,
+    resetPasswordConfirmPhoneError: false
 };
 
 const authReducer = (state = initState, action: Action) => {
@@ -125,7 +126,7 @@ const authReducer = (state = initState, action: Action) => {
                 ...state,
                 logoutRequest: false,
                 logoutError: true,
-                isLoggedIn: true,
+                isLoggedIn: true
             };
 
         // register
@@ -142,7 +143,11 @@ const authReducer = (state = initState, action: Action) => {
                 registerRequest: false,
                 registerError: false,
                 isRegistered: true,
-                registerStep: 2
+                registerStep: 2,
+                user: {
+                    ...state.user,
+                    email: action.meta
+                }
             };
 
         case types.USER_REGISTER_FAIL:
@@ -187,7 +192,7 @@ const authReducer = (state = initState, action: Action) => {
         case types.USER_UPDATE_PROFILE_REQUEST:
             return {
                 ...state,
-                profileUpdateRequest: true,
+                profileUpdateRequest: true
             };
 
         case types.USER_UPDATE_PROFILE_SUCCESS:
@@ -219,7 +224,9 @@ const authReducer = (state = initState, action: Action) => {
                 ...state,
                 emailConformRequest: false,
                 emailConformError: false,
-                isEmailConfirmed: true
+                isEmailConfirmed: true,
+                isLoggedIn: true,
+                registerStep: 3
             };
 
         case types.USER_CONFIRM_EMAIL_FAIL:
@@ -274,7 +281,7 @@ const authReducer = (state = initState, action: Action) => {
                 confirmPhoneRequest: false,
                 confirmPhoneError: true
             };
-        
+
         // auth
         case types.SET_USER_TOKEN:
             return {

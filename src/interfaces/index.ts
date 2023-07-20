@@ -57,10 +57,8 @@ export interface LoginRequest {
     password: string;
 }
 
-export type ForgotPasswordByEmailRequest = EmailRequest;
-
-export interface ForgotPasswordByPhoneRequest {
-    phone: string;
+export interface LogoutRequest {
+    token: string;
 }
 
 export interface RegistrationRequest {
@@ -69,11 +67,17 @@ export interface RegistrationRequest {
     ref: string;
 }
 
+export type ForgotPasswordByEmailRequest = EmailRequest;
+
+export interface ForgotPasswordByPhoneRequest {
+    phone: string;
+}
+
 export interface ResetPasswordRequest {
     data: {
         new_password: string;
         reset_password_token: string;
-    },
+    };
     token: string;
 }
 
@@ -145,7 +149,7 @@ export interface ResetPasswordConfirmPhoneResponse {
     msg: string;
     user_data: {
         reset_password_token: string;
-    }
+    };
 }
 
 export type ConfirmEmailResponse = BasicResponse;

@@ -16,19 +16,12 @@ function* emailConfirmSaga({
         });
 
         if (response?.status === 'success') {
-            yield put({
-                type: types.USER_CONFIRM_EMAIL_SUCCESS,
-                payload: response.data
-            });
+            yield put({ type: types.USER_CONFIRM_EMAIL_SUCCESS });
         } else {
-            yield put({
-                type: types.USER_CONFIRM_EMAIL_FAIL
-            });
+            yield put({ type: types.USER_CONFIRM_EMAIL_FAIL });
         }
     } catch (error) {
-        yield put({
-            type: types.USER_CONFIRM_EMAIL_FAIL
-        });
+        yield put({ type: types.USER_CONFIRM_EMAIL_FAIL });
     }
 }
 

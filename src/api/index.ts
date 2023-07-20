@@ -44,7 +44,7 @@ export const GETconfig = {
     headers: {
         'Content-Type': 'application/json'
     }
-}
+};
 
 const getAuthConfig = (token: string) => ({
     method: 'post',
@@ -65,17 +65,18 @@ export const loginUser = async ({
         url: url.login,
         data: isEmail
             ? {
-                email: login,
-                password
-            }
+                  email: login,
+                  password
+              }
             : {
-                phone: login,
-                password
-            }
-    }).then(response => {
-        console.info('response data: ', response.data);
-        return response.data.user_data;
-    });
+                  phone: login,
+                  password
+              }
+    })
+        .then(response => response.data)
+        .catch(error => {
+            console.error(error);
+        });
 };
 
 export const logoutUser = async (token: string) => {
@@ -84,10 +85,11 @@ export const logoutUser = async (token: string) => {
     return await axios({
         ...authConfig,
         url: url.logout
-    }).then(response => {
-        console.info('response data: ', response.data);
-        return response.data;
-    });
+    })
+        .then(response => response.data)
+        .catch(error => {
+            console.error(error);
+        });
 };
 
 export const register = async (data: RegistrationRequest) => {
@@ -96,10 +98,7 @@ export const register = async (data: RegistrationRequest) => {
         url: url.register,
         data
     })
-        .then(response => {
-            console.info('response data: ', response.data);
-            return response.data.user_data.token;
-        })
+        .then(response => response.data)
         .catch(error => {
             console.error(error);
         });
@@ -116,10 +115,7 @@ export const profileCreate = async ({
         url: url.profileCreate,
         data
     })
-        .then(response => {
-            console.info('response data: ', response.data);
-            return response.data.user_data;
-        })
+        .then(response => response.data)
         .catch(error => {
             console.error(error);
         });
@@ -129,32 +125,24 @@ export const emailConfirm = async ({
     ref,
     token
 }: ConfirmEmailRequest) => {
-
     return await axios({
         ...GETconfig,
         url: url.confirmEmail,
         data: { ref, token }
     })
-        .then(response => {
-            console.info('response data: ', response.data);
-            return response.data;
-        })
+        .then(response => response.data)
         .catch(error => {
             console.error(error);
         });
 };
 
 export const sendSms = async (phone: string) => {
-
     return await axios({
         ...config,
         url: url.sendSms,
         data: { phone }
     })
-        .then(response => {
-            console.info('response data: ', response.data);
-            return response.data;
-        })
+        .then(response => response.data)
         .catch(error => {
             console.error(error);
         });
@@ -171,10 +159,7 @@ export const phoneConfirm = async ({
         url: url.confirmPhome,
         data: { confirm_phone_code: code }
     })
-        .then(response => {
-            console.info('response data: ', response.data);
-            return response.data;
-        })
+        .then(response => response.data)
         .catch(error => {
             console.error(error);
         });
@@ -186,78 +171,99 @@ export const getUser = async (token: string) => {
     return await axios({
         ...authConfig,
         url: url.getUser
-    }).then(response => {
-        console.info('response data: ', response.data);
-        return response.data.user_data;
-    });
-}
+    })
+        .then(response => response.data)
+        .catch(error => {
+            console.error(error);
+        });
+};
 
-export const updateProfile = async ({ token, data }: UpdateProfilePayload) => {
+export const updateProfile = async ({
+    token,
+    data
+}: UpdateProfilePayload) => {
     const authConfig = getAuthConfig(token);
 
     return await axios({
         ...authConfig,
         url: url.updateProfile,
         data
-    }).then(response => {
-        console.info('response data: ', response.data);
-        return response.data.user_data;
-    });
-}
+    })
+        .then(response => response.data)
+        .catch(error => {
+            console.error(error);
+        });
+};
 
-export const forgotPasswordByEmail = async (data: ForgotPasswordByEmailRequest) => {
+//--------------------------------------------------------
+
+export const forgotPasswordByEmail = async (
+    data: ForgotPasswordByEmailRequest
+) => {
     return await axios({
         ...config,
         url: url.forgotPassword,
         data
-    }).then(response => {
-        console.info('response data: ', response.data);
-        return response.data;
-    });
-}
+    })
+        .then(response => response.data)
+        .catch(error => {
+            console.error(error);
+        });
+};
 
 export const forgotPasswordByPhone = async (phone: string) => {
     return await axios({
         ...config,
         url: url.forgotPassword,
         data: { phone }
-    }).then(response => {
-        console.info('response data: ', response.data);
-        return response.data;
-    });
-}
+    })
+        .then(response => response.data)
+        .catch(error => {
+            console.error(error);
+        });
+};
 
-export const resetPassword = async ({ data, token }: ResetPasswordRequest) => {
+export const resetPassword = async ({
+    data,
+    token
+}: ResetPasswordRequest) => {
     const authConfig = getAuthConfig(token);
 
     return await axios({
         ...authConfig,
         url: url.resetPassword,
         data
-    }).then(response => {
-        console.info('response data: ', response.data);
-        return response.data;
-    });
-}
+    })
+        .then(response => response.data)
+        .catch(error => {
+            console.error(error);
+        });
+};
 
 export const resetPasswordRedirect = async (data: EmailRequest) => {
     return await axios({
         ...GETconfig,
         url: url.resetPasswordRedirect,
         data
-    }).then(response => {
-        console.info('response data: ', response.data);
-        return response.data;
-    });
-}
+    })
+        .then(response => response.data)
+        .catch(error => {
+            console.error(error);
+        });
+};
 
-export const resetPasswordConfirmPhone = async (data: ResetPasswordConfirmPhoneRequest) => {
+export const resetPasswordConfirmPhone = async (
+    data: ResetPasswordConfirmPhoneRequest
+) => {
     return await axios({
         ...config,
         url: url.resetPasswordConfirmPhone,
         data
-    }).then(response => {
-        console.info('response data: ', response.data);
-        return response.data.user_data.reset_password_token;
-    });
-}
+    })
+        .then(
+            response => response.data.user_data.reset_password_token
+        )
+        .catch(error => {
+            console.error(error);
+        });
+};

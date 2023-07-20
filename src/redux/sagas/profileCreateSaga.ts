@@ -15,22 +15,16 @@ function* profileCreateSaga({
             token: payload.token
         });
 
-        if (response?.status === 'success') {
+        if (response.status === 'success') {
             yield put({
                 type: types.USER_CREATE_PROFILE_SUCCESS,
-                payload: response.data
+                payload: response.user_data
             });
         } else {
-            yield put({
-                type: types.USER_CREATE_PROFILE_FAIL,
-                payload: 'error'
-            });
+            yield put({ type: types.USER_CREATE_PROFILE_FAIL });
         }
     } catch (error) {
-        yield put({
-            type: types.USER_CREATE_PROFILE_FAIL,
-            payload: 'error'
-        });
+        yield put({ type: types.USER_CREATE_PROFILE_FAIL });
     }
 }
 

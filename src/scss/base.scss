@@ -9,7 +9,7 @@ body {
     -webkit-tap-highlight-color: var(--transparent);
     overflow-x: hidden;
     background-color: var(--pure-white);
-    font-family: "Montserrat" !important;
+    font-family: 'Montserrat' !important;
 }
 
 * {
@@ -17,7 +17,7 @@ body {
     margin: 0;
     outline: none !important;
     box-sizing: border-box;
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
 
     &::before,
     &::after {
@@ -51,6 +51,10 @@ body {
 
 .grey-main {
     color: var(--grey-main) !important;
+}
+
+.primary {
+    color: var(--primary) !important;
 }
 
 .ant-btn {

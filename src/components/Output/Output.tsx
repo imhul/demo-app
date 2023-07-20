@@ -8,9 +8,7 @@ import { Layout } from 'antd';
 const { Content } = Layout;
 
 const Output: React.FC = () => {
-    const { registerStep } = useSelector(
-        (s: any) => s.auth
-    );
+    const { registerStep } = useSelector((s: any) => s.auth);
     const [collapsed, setCollapsed] = useState(false);
     const dispatch = useDispatch();
 
@@ -31,7 +29,7 @@ const Output: React.FC = () => {
     return (
         <Layout>
             <Aside collapsed={collapsed} />
-            <main>
+            <main className={collapsed ? 'extended' : ''}>
                 <Content style={contentStyle}>
                     <Router />
                 </Content>

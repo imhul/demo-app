@@ -12,13 +12,8 @@ const FormItem = Form.Item;
 const Password = Input.Password;
 
 const Register = () => {
-    const {
-        registerRequest,
-        registerError,
-        profileCreateRequest,
-        registerStep,
-    } = useSelector((s: any) => s.auth);
-    const [submitDisabled, setSubmitDisabled] = useState(false);
+    const { registerRequest, registerError, registerStep } =
+        useSelector((s: any) => s.auth);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalWasShown, setModalWasShown] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
@@ -45,11 +40,6 @@ const Register = () => {
     }, []);
 
     useEffect(() => {
-        const disabled = registerRequest || profileCreateRequest;
-        setSubmitDisabled(disabled);
-    }, [registerRequest, profileCreateRequest]);
-
-    useEffect(() => {
         if (!modalOpen && !modalWasShown && registerStep === 2) {
             setModalOpen(true);
             setModalWasShown(true);
@@ -73,14 +63,19 @@ const Register = () => {
                 onClose={onModalClose}
                 open={modalOpen}
                 closeIcon={<CloseIcon />}
-                headerStyle={{ borderBottom: 'none', justifyContent: 'flex-end' }}
+                headerStyle={{
+                    borderBottom: 'none',
+                    justifyContent: 'flex-end'
+                }}
                 width="100%"
             >
                 <div className="modal-content">
                     <SuccessIcon />
                     <p>
-                        Аккаунт был успешно зарегистрирован.<br />
-                        На ваш E-Mail отправлено письмо со ссылкой для подтверждения
+                        Аккаунт был успешно зарегистрирован.
+                        <br />
+                        На ваш E-Mail отправлено письмо со ссылкой для
+                        подтверждения
                     </p>
                 </div>
             </Drawer>
@@ -93,7 +88,7 @@ const Register = () => {
                 requiredMark={false}
                 size="large"
             >
-                <Row gutter={24} className="Register">
+                <Row gutter={24} className="register">
                     <Col span={24}>
                         <FormItem
                             name="email"
@@ -112,6 +107,7 @@ const Register = () => {
                             ]}
                         >
                             <Input
+                                type="email"
                                 placeholder="Адрес эл. почты"
                                 autoComplete="email"
                             />
@@ -125,10 +121,21 @@ const Register = () => {
                             hasFeedback
                             rules={[
                                 {
-                                    min: 6,
+                                    min: 8,
+                                    max: 14,
                                     required: true,
                                     whitespace: true,
+                                    message:
+                                        'Длина пароля должна быть не менее 8 и не более 14 символов'
+                                },
+                                {
+                                    required: true,
                                     message: 'Обязательное поле'
+                                },
+                                {
+                                    message:
+                                        'Буквенная часть пароля должна содержать как строчные, так и прописные (заглавные) буквы',
+                                    pattern: /^(?=.*[a-z])(?=.*[A-Z])/
                                 }
                             ]}
                         >
@@ -147,10 +154,21 @@ const Register = () => {
                             hasFeedback
                             rules={[
                                 {
-                                    min: 6,
+                                    min: 8,
+                                    max: 14,
                                     required: true,
                                     whitespace: true,
+                                    message:
+                                        'Длина пароля должна быть не менее 8 и не более 14 символов'
+                                },
+                                {
+                                    required: true,
                                     message: 'Обязательное поле'
+                                },
+                                {
+                                    message:
+                                        'Буквенная часть пароля должна содержать как строчные, так и прописные (заглавные) буквы',
+                                    pattern: /^(?=.*[a-z])(?=.*[A-Z])/
                                 },
                                 ({ getFieldValue }) => ({
                                     validator(_, value) {
@@ -180,14 +198,14 @@ const Register = () => {
 
                     <Col span={24}>
                         <Button
-                            disabled={submitDisabled}
+                            disabled={registerRequest}
                             shape="round"
                             type="primary"
                             htmlType="submit"
                             onClick={submit}
                             block
                         >
-                            {submitDisabled ? (
+                            {registerRequest ? (
                                 <SyncOutlined
                                     rotate={180}
                                     className="grey-main"

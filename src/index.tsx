@@ -6,8 +6,8 @@ import { ConfigProvider } from 'antd';
 import Output from './components/Output';
 // styles
 import 'antd/dist/reset.css';
-import "@fontsource/montserrat/latin.css";
-import "@fontsource/montserrat/cyrillic.css";
+import '@fontsource/montserrat/latin.css';
+import '@fontsource/montserrat/cyrillic.css';
 import './scss/index.scss';
 
 const root = ReactDOM.createRoot(
