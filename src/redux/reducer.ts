@@ -12,30 +12,57 @@ const initState = {
     // ui
     initialized: false,
     isLoginTab: true,
-    // auth data
+    // user
     user: {},
+    getUserInfoRequest: false,
+    getUserInfoError: false,
+    getUserInfoSuccess: false,
+    // auth data
     token: '',
-    // login
+    resetToken: '',
+    resetTemporaryToken: '',
+    // login / logout
     isLoggedIn: false,
     loginRequest: false,
     loginError: false,
+    logoutRequest: false,
+    logoutError: false,
     // profile create
     isProfileCreated: false,
     profileCreateRequest: false,
     profileCreateError: false,
+    // profile update
+    isProfileUpdated: false,
+    profileUpdateRequest: false,
+    profileUpdateError: false,
     // registration
     isRegistered: false,
     registerRequest: false,
     registerError: false,
     registerStep: 1,
     // confirm email
-    isConfirmEmail: false,
+    isEmailConfirmed: false,
+    emailConformRequest: false,
+    emailConformError: false,
     // confirm phone
-    isConfirmPhone: false,
+    isSmsSended: false,
+    isPhoneConfirmed: false,
+    confirmSendSmsRequest: false,
+    confirmSendSmsError: false,
+    confirmPhoneRequest: false,
+    confirmPhoneError: false,
     // reset password
-    isResetPassword: false,
+    resetPasswordRequest: false,
+    resetPasswordSuccess: false,
+    resetPasswordError: false,
     // forgot password
-    isForgotPassword: false
+    forgotPasswordRequest: false,
+    forgotPasswordSuccess: false,
+    forgotPasswordError: false,
+    // reset password confirm phone
+    resetPasswordConfirmPhoneRequest: false,
+    resetPasswordConfirmPhoneSuccess: false,
+    resetPasswordConfirmPhoneError: false,
 };
 
 const authReducer = (state = initState, action: Action) => {
@@ -65,7 +92,8 @@ const authReducer = (state = initState, action: Action) => {
                 ...state,
                 loginRequest: false,
                 loginError: false,
-                isLoggedIn: true
+                isLoggedIn: true,
+                user: action.payload
             };
 
         case types.USER_LOGIN_FAIL:
@@ -74,6 +102,30 @@ const authReducer = (state = initState, action: Action) => {
                 loginRequest: false,
                 isLoggedIn: false,
                 loginError: true
+            };
+
+        // logout
+        case types.USER_LOGOUT_REQUEST:
+            return {
+                ...state,
+                logoutRequest: true
+            };
+
+        case types.USER_LOGOUT_SUCCESS:
+            return {
+                ...state,
+                logoutRequest: false,
+                logoutError: false,
+                isLoggedIn: false,
+                token: ''
+            };
+
+        case types.USER_LOGOUT_FAIL:
+            return {
+                ...state,
+                logoutRequest: false,
+                logoutError: true,
+                isLoggedIn: true,
             };
 
         // register
@@ -131,6 +183,98 @@ const authReducer = (state = initState, action: Action) => {
                 profileCreateError: true
             };
 
+        // profile update
+        case types.USER_UPDATE_PROFILE_REQUEST:
+            return {
+                ...state,
+                profileUpdateRequest: true,
+            };
+
+        case types.USER_UPDATE_PROFILE_SUCCESS:
+            return {
+                ...state,
+                profileUpdateRequest: false,
+                profileUpdateError: false,
+                isProfileUpdated: true,
+                user: action.payload
+            };
+
+        case types.USER_UPDATE_PROFILE_FAIL:
+            return {
+                ...state,
+                profileUpdateRequest: false,
+                isProfileUpdated: false,
+                profileUpdateError: true
+            };
+
+        // confirm email
+        case types.USER_CONFIRM_EMAIL_REQUEST:
+            return {
+                ...state,
+                emailConformRequest: true
+            };
+
+        case types.USER_CONFIRM_EMAIL_SUCCESS:
+            return {
+                ...state,
+                emailConformRequest: false,
+                emailConformError: false,
+                isEmailConfirmed: true
+            };
+
+        case types.USER_CONFIRM_EMAIL_FAIL:
+            return {
+                ...state,
+                isEmailConfirmed: false,
+                emailConformRequest: false,
+                emailConformError: true
+            };
+
+        // confirm phone
+        case types.USER_CONFIRM_SEND_SMS_REQUEST:
+            return {
+                ...state,
+                confirmSendSmsRequest: true
+            };
+
+        case types.USER_CONFIRM_SEND_SMS_SUCCESS:
+            return {
+                ...state,
+                confirmSendSmsRequest: false,
+                confirmSendSmsError: false,
+                isSmsSended: true
+            };
+
+        case types.USER_CONFIRM_SEND_SMS_FAIL:
+            return {
+                ...state,
+                isSmsSended: false,
+                confirmSendSmsRequest: false,
+                confirmSendSmsError: true
+            };
+
+        case types.USER_CONFIRM_PHONE_REQUEST:
+            return {
+                ...state,
+                confirmPhoneRequest: true
+            };
+
+        case types.USER_CONFIRM_PHONE_SUCCESS:
+            return {
+                ...state,
+                confirmPhoneRequest: false,
+                confirmPhoneError: false,
+                isPhoneConfirmed: true
+            };
+
+        case types.USER_CONFIRM_PHONE_FAIL:
+            return {
+                ...state,
+                isPhoneConfirmed: false,
+                confirmPhoneRequest: false,
+                confirmPhoneError: true
+            };
+        
         // auth
         case types.SET_USER_TOKEN:
             return {
@@ -138,10 +282,113 @@ const authReducer = (state = initState, action: Action) => {
                 token: action.payload
             };
 
+        case types.SET_RESET_TOKEN:
+            return {
+                ...state,
+                resetToken: action.payload
+            };
+
+        case types.SET_RESET_TEMPORARY_TOKEN:
+            return {
+                ...state,
+                resetTemporaryToken: action.payload
+            };
+
+        // user
         case types.SET_USER:
             return {
                 ...state,
                 user: action.payload
+            };
+
+        case types.GET_USER_INFO_REQUEST:
+            return {
+                ...state,
+                getUserInfoRequest: true
+            };
+
+        case types.GET_USER_INFO_SUCCESS:
+            return {
+                user: action.payload,
+                getUserInfoSuccess: true,
+                getUserInfoRequest: false,
+                getUserInfoError: false
+            };
+
+        case types.GET_USER_INFO_FAIL:
+            return {
+                ...state,
+                getUserInfoRequest: false,
+                getUserInfoSuccess: false,
+                getUserInfoError: true
+            };
+
+        // password
+        case types.USER_FORGOT_PASSWORD_REQUEST:
+            return {
+                ...state,
+                isForgotPassword: true
+            };
+
+        case types.USER_FORGOT_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                forgotPasswordSuccess: true,
+                forgotPasswordRequest: false,
+                forgotPasswordError: false
+            };
+
+        case types.USER_FORGOT_PASSWORD_FAIL:
+            return {
+                ...state,
+                forgotPasswordSuccess: false,
+                forgotPasswordRequest: false,
+                forgotPasswordError: true
+            };
+
+        case types.USER_RESET_PASSWORD_REQUEST:
+            return {
+                ...state,
+                resetPasswordRequest: true
+            };
+
+        case types.USER_RESET_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                resetPasswordSuccess: true,
+                resetPasswordRequest: false,
+                resetPasswordError: false
+            };
+
+        case types.USER_RESET_PASSWORD_FAIL:
+            return {
+                ...state,
+                resetPasswordSuccess: false,
+                resetPasswordRequest: false,
+                resetPasswordError: true
+            };
+
+        case types.USER_RESET_PASSWORD_CONFIRM_PHONE_REQUEST:
+            return {
+                ...state,
+                resetPasswordConfirmPhoneRequest: true
+            };
+
+        case types.USER_RESET_PASSWORD_CONFIRM_PHONE_SUCCESS:
+            return {
+                ...state,
+                resetPasswordConfirmPhoneRequest: false,
+                resetPasswordConfirmPhoneSuccess: true,
+                resetPasswordConfirmPhoneError: false,
+                resetToken: action.payload
+            };
+
+        case types.USER_RESET_PASSWORD_CONFIRM_PHONE_FAIL:
+            return {
+                ...state,
+                resetPasswordConfirmPhoneRequest: false,
+                resetPasswordConfirmPhoneSuccess: false,
+                resetPasswordConfirmPhoneError: true
             };
 
         default:

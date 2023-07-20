@@ -23,9 +23,24 @@ export interface ProfileCreatePayload {
     token: string;
 }
 
+export interface ConfirmPhonePayload {
+    token: string;
+    code: string;
+}
+
+export interface UpdateProfilePayload {
+    data: UpdateProfileRequest;
+    token: string;
+}
+
 //--------------------------------------------------------
 // API
 // Requests
+
+export interface EmailRequest {
+    email: string;
+    ref: string;
+}
 
 export interface LoginByEmailRequest {
     email: string;
@@ -42,15 +57,7 @@ export interface LoginRequest {
     password: string;
 }
 
-export interface ConfirmEmailRequest {
-    token: string;
-    ref: string;
-}
-
-export interface ForgotPasswordByEmailRequest {
-    email: string;
-    ref: string;
-}
+export type ForgotPasswordByEmailRequest = EmailRequest;
 
 export interface ForgotPasswordByPhoneRequest {
     phone: string;
@@ -63,12 +70,37 @@ export interface RegistrationRequest {
 }
 
 export interface ResetPasswordRequest {
-    new_password: string;
-    reset_password_token: string;
+    data: {
+        new_password: string;
+        reset_password_token: string;
+    },
+    token: string;
+}
+
+export interface ResetPasswordConfirmPhoneRequest {
+    phone: string;
+    confirm_phone_code: string;
+}
+
+export interface ConfirmEmailRequest {
+    token: string;
+    ref: string;
 }
 
 export interface ConfirmPhoneSendSmsRequest {
     phone: string;
+}
+
+export interface UpdateProfileRequest {
+    birth_date: string;
+    lname: string;
+    name: string;
+    sname: string;
+    gender_id: number;
+    otherEmails: string[];
+    otherPhones: string[];
+    socials: string[];
+    office_presence_status_id: number;
 }
 
 // Auth requests where header have the userToken !!
@@ -106,6 +138,14 @@ export interface RegistrationResponse {
     user_data: {
         token: string;
     };
+}
+
+export interface ResetPasswordConfirmPhoneResponse {
+    status: string;
+    msg: string;
+    user_data: {
+        reset_password_token: string;
+    }
 }
 
 export type ConfirmEmailResponse = BasicResponse;

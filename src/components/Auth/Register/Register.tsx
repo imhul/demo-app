@@ -5,9 +5,8 @@ import { SyncOutlined } from '@ant-design/icons';
 // assets
 import { ReactComponent as SuccessIcon } from 'assets/success.svg';
 import { ReactComponent as CloseIcon } from 'assets/close.svg';
-// test
-import { config } from 'api';
-import axios from 'axios';
+// utils
+import CriptoJs from 'crypto-js';
 
 const FormItem = Form.Item;
 const Password = Input.Password;
@@ -16,11 +15,8 @@ const Register = () => {
     const {
         registerRequest,
         registerError,
-        isRegistered,
-        isProfileCreated,
         profileCreateRequest,
         registerStep,
-        token
     } = useSelector((s: any) => s.auth);
     const [submitDisabled, setSubmitDisabled] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -36,7 +32,7 @@ const Register = () => {
             type: 'USER_REGISTER_REQUEST',
             payload: {
                 email: values.email,
-                password: values.password,
+                password: CriptoJs.MD5(values.password).toString(),
                 ref: '/email-confirm'
             }
         });
@@ -47,31 +43,6 @@ const Register = () => {
             messageApi.error(error);
         }
     }, []);
-
-    useEffect(() => {
-        if (
-            isRegistered &&
-            token &&
-            !isProfileCreated &&
-            registerStep === 3
-        ) {
-            dispatch({
-                type: 'USER_CREATE_PROFILE_REQUEST',
-                payload: {
-                    token,
-                    // TODO: add form values
-                    data: {
-                        birth_date: '',
-                        lname: '',
-                        name: '',
-                        sname: '',
-                        phone: '',
-                        gender_id: 0
-                    }
-                }
-            });
-        }
-    }, [isRegistered, isProfileCreated, registerStep, token]);
 
     useEffect(() => {
         const disabled = registerRequest || profileCreateRequest;
@@ -90,19 +61,6 @@ const Register = () => {
         setModalOpen(false);
         dispatch({ type: 'SET_REGISTER_STEP', payload: 1 });
     };
-
-    const removeTest = async () => {
-        await axios({
-            ...config,
-            
-        }).then(response => {
-            console.info('response data: ', response.data);
-            console.info('response status: ', response.status);
-            console.info('response statusText: ', response.statusText);
-    
-            return response.data;
-        });
-    }
 
     return (
         <>

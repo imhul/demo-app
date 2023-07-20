@@ -5,7 +5,7 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import Auth from 'components/Auth';
 import Profile from 'components/Profile';
 import PrivateRoute from 'hoc/privateRoute';
-import EmailConfirm from 'components/Auth/EmailConfirm';
+import EmailConfirm from 'components/Auth/Confirm';
 
 const Router = () => {
     const { isLoggedIn } = useSelector((s: any) => s.auth);
