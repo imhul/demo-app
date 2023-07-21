@@ -1,17 +1,22 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+// components
 import {
-    Button,
-    Form,
-    Input,
     Row,
     Col,
-    DatePicker,
+    Form,
+    Input,
     Select,
-    message
+    Button,
+    DatePicker
 } from 'antd';
+import LogoutModal from 'components/LogoutModal/LogoutModal';
 import { SyncOutlined } from '@ant-design/icons';
+import Portal from 'components/Portal';
+// utils
 import locale from 'antd/es/date-picker/locale/ru_RU';
+// assets
+import { ReactComponent as LogoutIcon } from 'assets/logout-icon.svg';
 
 const FormItem = Form.Item;
 const genders = [
@@ -32,14 +37,16 @@ const genders = [
 const Profile: React.FC = () => {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
+    const [isModalOpen, setModalOpen] = useState(false);
 
     const {
         user,
         token,
         registerStep,
         isRegistered,
-        profileCreateRequest,
-        isProfileCreated
+        isPhoneConfirmed,
+        isProfileCreated,
+        profileCreateRequest
     } = useSelector((s: any) => s.auth);
 
     const submit = useCallback(() => {
@@ -62,6 +69,14 @@ const Profile: React.FC = () => {
 
     return (
         <>
+            {isModalOpen && (
+                <Portal>
+                    <LogoutModal
+                        token={token}
+                        onClose={() => setModalOpen(false)}
+                    />
+                </Portal>
+            )}
             <div className="auth extended">
                 <Form
                     form={form}
@@ -180,25 +195,49 @@ const Profile: React.FC = () => {
                                 />
                             </FormItem>
                         </Col>
-
-                        <Col span={24}>
-                            <FormItem
-                                name="phone"
-                                label="Телефон"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Обязательное поле'
-                                    }
-                                ]}
-                            >
-                                <Input
-                                    type="tel"
-                                    placeholder="+38 (050) 725 60 09"
-                                    autoComplete="tel"
-                                />
-                            </FormItem>
-                        </Col>
+                        {isPhoneConfirmed ? (
+                            <Col span={24}>
+                                <FormItem
+                                    name="phone"
+                                    label="Телефон"
+                                >
+                                    <Input
+                                        type="tel"
+                                        value={user.phone}
+                                        disabled
+                                    />
+                                </FormItem>
+                            </Col>
+                        ) : (
+                            <Col span={24}>
+                                <FormItem
+                                    name="phone"
+                                    label="Телефон"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message:
+                                                'Обязательное поле'
+                                        }
+                                    ]}
+                                >
+                                    <Input
+                                        type="tel"
+                                        placeholder="+38 (050) 725 60 09"
+                                        autoComplete="tel"
+                                    />
+                                </FormItem>
+                                <div className="link-wrapper">
+                                    <Button
+                                        htmlType="button"
+                                        type="link"
+                                        href="/phone-confirm"
+                                    >
+                                        Подтвердить телефон
+                                    </Button>
+                                </div>
+                            </Col>
+                        )}
                         <Col span={24}>
                             <FormItem
                                 name="email"
@@ -208,7 +247,8 @@ const Profile: React.FC = () => {
                                         min: 8,
                                         type: 'email',
                                         whitespace: true,
-                                        message: ''
+                                        message:
+                                            'Введите корректный email'
                                     },
                                     {
                                         required: true,
@@ -233,8 +273,15 @@ const Profile: React.FC = () => {
                     </Row>
                 </Form>
             </div>
-            {registerStep === 3 && (
-                <div className="btn-wrapper">
+
+            <div className="btn-wrapper">
+                <Button
+                    type="link"
+                    onClick={() => setModalOpen(true)}
+                >
+                    <LogoutIcon /> <span>Выход</span>
+                </Button>
+                {registerStep === 3 ? (
                     <Button
                         disabled={profileCreateRequest}
                         shape="round"
@@ -252,8 +299,10 @@ const Profile: React.FC = () => {
                             'Далее'
                         )}
                     </Button>
-                </div>
-            )}
+                ) : (
+                    <div className="right-helper" />
+                )}
+            </div>
         </>
     );
 };

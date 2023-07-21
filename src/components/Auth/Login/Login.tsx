@@ -57,7 +57,7 @@ const Login = () => {
                 requiredMark={false}
                 size="large"
             >
-                <Row gutter={24} className="Login">
+                <Row gutter={24} className="login">
                     <Col span={24}>
                         <FormItem
                             name="login"
@@ -67,7 +67,8 @@ const Login = () => {
                                     min: 8,
                                     type: 'email',
                                     whitespace: true,
-                                    message: ''
+                                    message:
+                                        'Введите корректный email'
                                 },
                                 {
                                     required: true,

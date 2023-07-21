@@ -57,6 +57,10 @@ body {
     color: var(--primary) !important;
 }
 
+.center {
+    text-align: center;
+}
+
 .ant-btn {
     @include font(rem(12), 600, normal, var(--pure-white));
 

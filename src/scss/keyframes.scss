@@ -1,0 +1,17 @@
+@keyframes leftToCenter {
+    0% {
+        transform: translate(-250%, -50%);
+    }
+    100% {
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes centerToLeft {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        transform: translate(-250%, -50%);
+    }
+}

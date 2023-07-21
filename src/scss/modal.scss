@@ -1,0 +1,59 @@
+#portal {
+    .modal {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            max-width: rem(504);
+            max-height: rem(402);
+            padding: rem(64);
+            box-shadow: var(--box-shadow);
+            border-radius: rem(8);
+            background-color: var(--pure-white);
+            text-align: center;
+
+            &.open {
+                transform: translate(-50%, -50%);
+                animation: leftToCenter 0.25s ease-out;
+            }
+
+            &.closed {
+                transform: translate(-250%, -50%);
+                animation: centerToLeft 0.25s ease-in;
+            }
+
+            h1 {
+                @include font(rem(18), 600, 120%, var(--text-dark));
+            }
+
+            p {
+                @include font(rem(12), 500, 120%, var(--text-main));
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: rem(12);
+            right: rem(12);
+            width: rem(24);
+            height: rem(24);
+            cursor: pointer;
+
+            svg {
+                path {
+                    fill: var(--grey);
+                }
+            }
+        }
+    }
+}

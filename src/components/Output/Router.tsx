@@ -48,6 +48,11 @@ const Router = () => {
 
                 <Route
                     path="/phone-confirm"
+                    element={<PhoneConfirm />}
+                />
+
+                {/* <Route
+                    path="/phone-confirm"
                     element={
                         registerStep === 3 || registerStep === 4 ? (
                             <PhoneConfirm />
@@ -58,7 +63,7 @@ const Router = () => {
                             />
                         )
                     }
-                />
+                /> */}
 
                 <Route
                     path="/profile"

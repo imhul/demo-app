@@ -14,7 +14,10 @@ const initState = {
     initialized: false,
     isLoginTab: true,
     // user
-    user: {},
+    user: {
+        email: '',
+        phone: ''
+    },
     getUserInfoRequest: false,
     getUserInfoError: false,
     getUserInfoSuccess: false,
@@ -116,6 +119,7 @@ const authReducer = (state = initState, action: Action) => {
             return {
                 ...state,
                 logoutRequest: false,
+                isRegistered: false,
                 logoutError: false,
                 isLoggedIn: false,
                 token: ''
@@ -258,6 +262,12 @@ const authReducer = (state = initState, action: Action) => {
                 isSmsSended: false,
                 confirmSendSmsRequest: false,
                 confirmSendSmsError: true
+            };
+
+        case types.PREPARE_TO_RESEND_SMS:
+            return {
+                ...state,
+                isSmsSended: false
             };
 
         case types.USER_CONFIRM_PHONE_REQUEST:

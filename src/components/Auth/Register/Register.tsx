@@ -98,7 +98,8 @@ const Register = () => {
                                     min: 8,
                                     type: 'email',
                                     whitespace: true,
-                                    message: ''
+                                    message:
+                                        'Введите корректный email'
                                 },
                                 {
                                     required: true,

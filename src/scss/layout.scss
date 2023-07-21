@@ -87,14 +87,110 @@ html {
                             transform: none;
                             max-width: rem(576);
                         }
+
+                        h1 {
+                            @include font(
+                                rem(18),
+                                600,
+                                rem(24),
+                                var(--text-dark)
+                            );
+                        }
+
+                        p {
+                            @include font(
+                                rem(12),
+                                500,
+                                rem(24),
+                                var(--text-light)
+                            );
+                        }
+
+                        .ant-form-item-label {
+                            padding-bottom: 0;
+
+                            label {
+                                height: rem(24);
+                                @include font(
+                                    rem(12),
+                                    600,
+                                    rem(24),
+                                    var(--text-dark)
+                                );
+                            }
+                        }
+
+                        .link-wrapper {
+                            width: 100%;
+                            display: flex;
+                            justify-content: flex-end;
+                            margin-bottom: rem(24);
+
+                            .ant-btn-link {
+                                padding: 0;
+                                @include font(
+                                    rem(12),
+                                    600,
+                                    rem(24),
+                                    var(--primary)
+                                );
+
+                                &:disabled {
+                                    cursor: not-allowed !important;
+                                    color: var(
+                                        --grey-main
+                                    ) !important;
+                                }
+
+                                &:hover {
+                                    color: var(
+                                        --primary-dark
+                                    ) !important;
+                                }
+
+                                &:active,
+                                &:focus {
+                                    color: var(
+                                        --primary-light
+                                    ) !important;
+                                }
+                            }
+                        }
+
+                        #phone-confirm-form {
+                            .ant-form-item {
+                                margin-bottom: 0;
+                            }
+                        }
                     }
 
                     .btn-wrapper {
                         position: absolute;
                         bottom: rem(24);
-                        right: rem(24);
-                        width: rem(90);
+                        right: 0;
+                        display: flex;
+                        flex-flow: row wrap;
+                        align-items: flex-end;
+                        justify-content: space-between;
+                        width: 100%;
                         height: rem(40);
+                        padding: 0 rem(24);
+
+                        .ant-btn-link {
+                            display: flex;
+                            align-items: center;
+                            padding: 0;
+
+                            span {
+                                margin-left: rem(8);
+                                @include font(
+                                    rem(12),
+                                    500,
+                                    rem(24),
+                                    var(--grey-dark)
+                                );
+                            }
+                        }
                     }
 
                     .switch {
