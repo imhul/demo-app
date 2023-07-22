@@ -195,8 +195,6 @@ export const updateProfile = async ({
         });
 };
 
-//--------------------------------------------------------
-
 export const forgotPasswordByEmail = async (
     data: ForgotPasswordByEmailRequest
 ) => {

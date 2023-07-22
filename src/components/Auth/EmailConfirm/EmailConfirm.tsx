@@ -4,13 +4,11 @@ import { Result } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
 
 const EmailConfirm = () => {
-    const { token, registerStep, isRegistered } = useSelector(
-        (s: any) => s.auth
-    );
+    const { token, isRegistered } = useSelector((s: any) => s.auth);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (registerStep === 1 && token?.length && isRegistered) {
+        if (token?.length && isRegistered) {
             dispatch({
                 type: 'USER_CONFIRM_EMAIL_REQUEST',
                 payload: {
@@ -19,7 +17,7 @@ const EmailConfirm = () => {
                 }
             });
         }
-    }, [token, registerStep, isRegistered]);
+    }, [token, isRegistered]);
 
     return (
         <Result

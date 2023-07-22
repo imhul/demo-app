@@ -34,36 +34,24 @@ const Router = () => {
                 <Route
                     path="/email-confirm"
                     element={
-                        isRegistered &&
-                        (registerStep === 1 || registerStep === 2) ? (
+                        isRegistered && registerStep === 3 ? (
                             <EmailConfirm />
                         ) : (
-                            <Navigate
-                                to={isLoggedIn ? '/profile' : '/'}
-                                replace
-                            />
+                            <Navigate to="/" replace />
                         )
                     }
                 />
 
                 <Route
                     path="/phone-confirm"
-                    element={<PhoneConfirm />}
-                />
-
-                {/* <Route
-                    path="/phone-confirm"
                     element={
-                        registerStep === 3 || registerStep === 4 ? (
+                        isRegistered && registerStep === 3 ? (
                             <PhoneConfirm />
                         ) : (
-                            <Navigate
-                                to={isLoggedIn ? '/profile' : '/'}
-                                replace
-                            />
+                            <Navigate to="/" replace />
                         )
                     }
-                /> */}
+                />
 
                 <Route
                     path="/profile"

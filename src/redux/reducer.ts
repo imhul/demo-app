@@ -26,7 +26,7 @@ const initState = {
     resetToken: '',
     resetTemporaryToken: '',
     // login / logout
-    isLoggedIn: true,
+    isLoggedIn: false,
     loginRequest: false,
     loginError: false,
     logoutRequest: false,
@@ -229,8 +229,7 @@ const authReducer = (state = initState, action: Action) => {
                 emailConformRequest: false,
                 emailConformError: false,
                 isEmailConfirmed: true,
-                isLoggedIn: true,
-                registerStep: 3
+                isLoggedIn: true
             };
 
         case types.USER_CONFIRM_EMAIL_FAIL:

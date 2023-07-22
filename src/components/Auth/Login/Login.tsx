@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Form, Input, Row, Col, message } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
+// utils
+import getMD5 from 'utils/md5';
 
 const FormItem = Form.Item;
 const Password = Input.Password;
@@ -18,9 +20,10 @@ const Login = () => {
 
     const submit = () => {
         const values = form.getFieldsValue();
+        const password = getMD5(values.password);
         dispatch({
             type: 'USER_LOGIN_REQUEST',
-            payload: values
+            payload: { ...values, password }
         });
     };
 

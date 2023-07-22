@@ -6,7 +6,7 @@ import { SyncOutlined } from '@ant-design/icons';
 import { ReactComponent as SuccessIcon } from 'assets/success.svg';
 import { ReactComponent as CloseIcon } from 'assets/close.svg';
 // utils
-import CriptoJs from 'crypto-js';
+import getMD5 from 'utils/md5';
 
 const FormItem = Form.Item;
 const Password = Input.Password;
@@ -23,11 +23,12 @@ const Register = () => {
 
     const submit = () => {
         const values = form.getFieldsValue();
+        const password = getMD5(values.password);
         dispatch({
             type: 'USER_REGISTER_REQUEST',
             payload: {
+                password,
                 email: values.email,
-                password: CriptoJs.MD5(values.password).toString(),
                 ref: '/email-confirm'
             }
         });
@@ -49,7 +50,7 @@ const Register = () => {
 
     const onModalClose = () => {
         setModalOpen(false);
-        dispatch({ type: 'SET_REGISTER_STEP', payload: 1 });
+        dispatch({ type: 'SET_REGISTER_STEP', payload: 3 });
     };
 
     return (
