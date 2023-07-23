@@ -43,7 +43,7 @@ const initState = {
     isRegistered: false,
     registerRequest: false,
     registerError: false,
-    registerStep: 1,
+    registerStep: 3,
     // confirm email
     isEmailConfirmed: false,
     emailConformRequest: false,
@@ -51,6 +51,7 @@ const initState = {
     // confirm phone
     isSmsSended: false,
     isPhoneConfirmed: false,
+    isPhoneConfirmPage: false,
     confirmSendSmsRequest: false,
     confirmSendSmsError: false,
     confirmPhoneRequest: false,
@@ -244,7 +245,8 @@ const authReducer = (state = initState, action: Action) => {
         case types.USER_CONFIRM_SEND_SMS_REQUEST:
             return {
                 ...state,
-                confirmSendSmsRequest: true
+                confirmSendSmsRequest: true,
+                isPhoneConfirmPage: true
             };
 
         case types.USER_CONFIRM_SEND_SMS_SUCCESS:
@@ -280,6 +282,7 @@ const authReducer = (state = initState, action: Action) => {
                 ...state,
                 confirmPhoneRequest: false,
                 confirmPhoneError: false,
+                isPhoneConfirmPage: false,
                 isPhoneConfirmed: true
             };
 

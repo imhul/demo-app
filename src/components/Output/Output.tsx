@@ -8,7 +8,7 @@ import { Layout } from 'antd';
 const { Content } = Layout;
 
 const Output: React.FC = () => {
-    const { registerStep } = useSelector((s: any) => s.auth);
+    const { registerStep, isPhoneConfirmPage } = useSelector((s: any) => s.auth);
     const [collapsed, setCollapsed] = useState(false);
     const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ const Output: React.FC = () => {
 
     useEffect(() => {
         if (!collapsed) {
-            setCollapsed(registerStep > 1);
+            setCollapsed(registerStep > 1 && !isPhoneConfirmPage);
         }
     }, [collapsed, registerStep]);
 
