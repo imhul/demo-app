@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## [demo](https://tkachuk-demo.netlify.app/)
+
 ## Technology Stack:
 
 -   React 18.2.0
