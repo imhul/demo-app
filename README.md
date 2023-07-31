@@ -4,6 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## [demo](https://tkachuk-demo.netlify.app/)
 
+## [docs](https://api.prof.world/doc/classes/api-profile-confirmEmail.html)
+
 ## Technology Stack:
 
 -   React 18.2.0
